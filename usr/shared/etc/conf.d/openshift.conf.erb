@@ -25,3 +25,37 @@ DefaultRuntimeDir "<%= "#{ENV['OPENSHIFT_PHP_DIR']}run"%>"
   Order Deny,Allow
   Deny from All
 </Directory>
+
+LoadModule proxy_module modules/mod_proxy.so
+LoadModule proxy_http_module modules/mod_proxy_http.so
+
+ProxyTimeout 300
+ProxyPreserveHost On
+
+ProxyPass /app/assets https://assets.openshift.net/app/assets
+ProxyPass /content https://assets.openshift.net/content
+ProxyPass /app/account/new https://openshift.redhat.com/app/account/new
+ProxyPass /app/account/new/ !
+ProxyPass /app/account/complete https://openshift.redhat.com/app/account/complete
+ProxyPass /app/account/complete/ !
+ProxyPass /app/account/ !
+
+<Limit POST>
+    ProxyPass /app/account https://openshift.redhat.com/app/account
+</Limit>
+
+<LocationMatch "^/app/assets(-dyn)?/.*\.(ttf|otf|eot|woff)$">
+    Header set Access-Control-Allow-Origin "*"
+</LocationMatch>
+
+<LocationMatch "^/app/assets(-dyn)?/.*">
+    Header set Cache-Control "max-age=604800"
+</LocationMatch>
+
+<LocationMatch "^/content/.*\.(ttf|otf|eot|woff)$">
+    Header set Access-Control-Allow-Origin "*"
+</LocationMatch>
+
+<LocationMatch "^/content/.*">
+    Header set Cache-Control "max-age=604800"
+</LocationMatch>

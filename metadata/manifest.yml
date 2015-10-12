@@ -2,9 +2,8 @@
 Name: php
 Cartridge-Short-Name: PHP
 Display-Name: PHP 5.4
-Description: PHP is a general-purpose server-side scripting language originally designed
-  for Web development to produce dynamic Web pages. Popular development frameworks
-  include CakePHP, Zend, Symfony, and Code Igniter.
+Description: Custom PHP cartridge developed for use on the www.openshift.com
+  website.
 Version: '5.4'
 Provides:
 - php-5.4
@@ -30,7 +29,7 @@ Compatible-Versions:
 - 0.0.24
 - 0.0.25
 - 0.0.26
-Cartridge-Vendor: redhat
+Cartridge-Vendor: luciddreamz
 Categories:
 - service
 - php
@@ -70,3 +69,4 @@ Endpoints:
     Backend: ''
     Options:
       health: true
+Source-Url: https://github.com/luciddreamz/custom-cartridge-php/archive/master.zip
