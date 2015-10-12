@@ -20,6 +20,7 @@ fi
 echo > ${OPENSHIFT_PHP_DIR}/configuration/etc/php.d/openshift.ini
 
 # Create/truncate gear-editable Apache configuration files
+echo > $OPENSHIFT_PHP_DIR/configuration/etc/conf.d/custom.conf
 echo > $OPENSHIFT_PHP_DIR/configuration/etc/conf.d/openshift.conf
 echo > $OPENSHIFT_PHP_DIR/configuration/etc/conf.d/passenv.conf
 echo > $OPENSHIFT_PHP_DIR/configuration/etc/conf.d/performance.conf

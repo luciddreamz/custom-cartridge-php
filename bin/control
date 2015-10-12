@@ -7,6 +7,7 @@ HTTPD_CFG_DIR=$OPENSHIFT_PHP_DIR/configuration/etc/conf.d
 ERB_HTTPD_CFG_DIR=$OPENSHIFT_PHP_DIR/usr/shared/etc/conf.d/
 HTTPD_PASSENV_FILE=$HTTPD_CFG_DIR/passenv.conf
 HTTPD_PID_FILE=$OPENSHIFT_PHP_DIR/run/httpd.pid
+HTTPD_CUSTOM_FILE=${OPENSHIFT_REPO_DIR}.openshift/custom.conf.erb
 
 # construct the configuration directives for httpd
 HTTPD_CMD_CONF="-c 'Include $HTTPD_CFG_DIR/*.conf' -f $HTTPD_CFG_FILE"
@@ -18,6 +19,9 @@ function pre_start_httpd_config {
     write_server_status ${HTTPD_CFG_DIR}/server-status.conf
     write_httpd_passenv $HTTPD_PASSENV_FILE
     select_php_document_root ${OPENSHIFT_REPO_DIR}
+    if [ -f "$HTTPD_CUSTOM_FILE" ]; then
+      oo-erb $HTTPD_CUSTOM_FILE > ${HTTPD_CFG_DIR}/custom.conf
+    fi
     oo-erb ${ERB_HTTPD_CFG_DIR}openshift.conf.erb > ${HTTPD_CFG_DIR}/openshift.conf
     oo-erb ${OPENSHIFT_PHP_DIR}conf/performance.conf.erb.hidden > $HTTPD_CFG_DIR/performance.conf
     enable_modules
