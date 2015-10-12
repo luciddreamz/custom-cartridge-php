@@ -28,6 +28,9 @@ DefaultRuntimeDir "<%= "#{ENV['OPENSHIFT_PHP_DIR']}run"%>"
 
 LoadModule proxy_module modules/mod_proxy.so
 LoadModule proxy_http_module modules/mod_proxy_http.so
+LoadModule ssl_module modules/mod_ssl.so
+
+SSLProxyEngine on
 
 ProxyTimeout 300
 ProxyPreserveHost On
